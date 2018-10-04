@@ -84,6 +84,7 @@ int cmdfs_getattr(const char *path, struct stat *st) {
 		  if (options.stat_pass_thru && !cacheIsFile) { // either can pass stat through and uncached, or stat of cached file failed
 		    if ( stat(src, st))
 		      rv = -errno;
+		    st->st_size += 20 * 1024;
 		  } else {
 		    if ( !cacheExists && stat(file_encache(f),&dststat)) // okay, wasn't cached before so cache and stat
 		      rv = -errno;
